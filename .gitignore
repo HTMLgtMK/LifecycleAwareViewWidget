@@ -13,3 +13,15 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea
+*.log
+*.tmp
+*.swp
+Thumbs.db
+.idea/shelf/
+.idea/tasks/
+.claude
+.omc
+.specify
+CLAUDE.md
+specs

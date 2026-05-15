@@ -16,10 +16,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven { url = 'https://maven.pkg.github.com/HTMLgtMK/LifecycleAwareViewWidget' }
     }
 }
 
-rootProject.name = "lifecyclewidget"
+rootProject.name = "LifecycleAwareViewWidget"
 include ':app'
-include ':lifecyclewidget'
-project(":lifecyclewidget").projectDir = file("library/lifecyclewidget")
+include ':lifecycleaware-viewwidget'
+project(":lifecycleaware-viewwidget").projectDir = file("library/lifecycleaware-viewwidget")

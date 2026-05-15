@@ -1,0 +1,37 @@
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name = 'GitHubPackages'
+                url = uri('https://maven.pkg.github.com/HTMLgtMK/LifecycleAwareViewWidget')
+                credentials {
+                    username = project.findProperty('gpr.user') ?: System.getenv('GITHUB_ACTOR')
+                    password = project.findProperty('gpr.key') ?: System.getenv('GITHUB_TOKEN')
+                }
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = project.PUBLISH_GROUP_ID
+                artifactId = project.PUBLISH_ARTIFACT_ID
+                version = project.PUBLISH_VERSION
+
+                pom {
+                    name = 'LifecycleAware ViewWidget'
+                    description = 'A lightweight Android library providing lifecycle-aware ViewWidget abstraction with ViewModel integration support.'
+                    url = 'https://github.com/HTMLgtMK/LifecycleAwareViewWidget'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
