@@ -21,7 +21,28 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build and publish
+        id: publish
         run: ./gradlew :lifecycleaware-viewwidget:publishReleasePublicationToGitHubPackagesRepository
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send notification email
+        if: always() && secrets.NOTIFY_EMAIL != ''
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: ${{ job.status == 'success' && '✅' || '❌' }} LifecycleAwareViewWidget ${{ github.ref_name }} published
+          to: ${{ secrets.NOTIFY_EMAIL }}
+          from: GitHub Actions
+          body: |
+            Repository: ${{ github.repository }}
+            Tag: ${{ github.ref_name }}
+            Status: ${{ job.status }}
+
+            ${{ job.status == 'success' && 'Published to GitHub Packages successfully.' || 'Publishing failed — check the workflow logs.' }}
+
+            Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
