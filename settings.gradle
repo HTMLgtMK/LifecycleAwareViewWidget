@@ -21,7 +21,9 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LifecycleAwareViewWidget"
+rootProject.name = "AwesomeDroidWidget"
 include ':app'
 include ':lifecycleaware-viewwidget'
 project(":lifecycleaware-viewwidget").projectDir = file("library/lifecycleaware-viewwidget")
+include ':cleanadapter'
+project(":cleanadapter").projectDir = file("library/cleanadapter")
